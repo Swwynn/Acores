@@ -16,7 +16,7 @@ import os
 from random import choice
 
 
-# Cette fonction me permet d'actualiser le terminal dans le quel s'execute le jeu
+# Cette fonction me permet d'actualiser le terminal dans lequel s'execute le jeu
 # C'est ce qui donne cette impression de rafraichissement.
 
 
@@ -78,7 +78,7 @@ def default() -> list:
     return grille
 
 
-# Et cette fonction me permet de retourner l'enemy d'un joueur.
+# Et cette fonction me permet de retourner l'ennemie d'un joueur.
 def enemy(player: str) -> int:
     return 1 if player == 0 else 0
 
@@ -90,7 +90,7 @@ def is_void(grille: list, coordinates: tuple) -> bool:
 
 
 # Comme son nom l'indique, elle me permet de savoir si le joueur passer en entrée
-# Est bien le jkoueur sur le plateau
+# Est bien le joueur sur le plateau
 def is_same_player(grille: list, player: int, coordinates: tuple) -> bool:
     line, column = coordinates
     current = Data['player'][player]['pion']
@@ -105,7 +105,7 @@ def is_in_grid(response: str) -> bool:
     return (response[0] in Data['letter'] or response[0] in Data['mini']) and response[1] in Data['number']
 
 
-# Celle ci me permet de mettre du vide, à l'endroit ou c'est fais manger un pion
+# Celle ci me permet de mettre du vide, à l'endroit ou c'est fait manger un pion
 def add_void_catch(grille: list, coordinates: tuple, x: int, y: int) -> list:
     line, column = coordinates
     grille[line + x][column + y] = " "
@@ -275,7 +275,7 @@ def tour_joueur(grille: list, player: int, IA: bool = False) -> list:
     return grille
 
 
-# Cette fonction me per met de retourner le nombre de pion sur le plateau !
+# Cette fonction me permet de retourner le nombre de pion sur le plateau !
 def pion_left(grille: list, player: str) -> int:
     compt = 0
     for x in range(len(grille)):
@@ -288,7 +288,7 @@ def pion_left(grille: list, player: str) -> int:
     return compt
 
 
-# Et cette fonction me permet de savoir si le jeu est finis
+# Et cette fonction me permet de savoir si le jeu est fini
 def gameFinished(grille: list) -> bool:
     pion1 = pion_left(grille, Data['player'][0]['pion'])
     pion2 = pion_left(grille, Data['player'][1]['pion'])
@@ -298,7 +298,7 @@ def gameFinished(grille: list) -> bool:
     return True
 
 
-# Et c'te fonction me permet d'afficher le gagnant !
+# Et cette fonction me permet d'afficher le gagnant !
 def load_end_game(winner: int) -> None:
     clear()
     print(f"""               ┌──────────────────────────────────┐
