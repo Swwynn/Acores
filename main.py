@@ -227,13 +227,11 @@ def tour_joueur(grille: list, player: int, IA: bool = False) -> list:
     if IA:
         toCoordinates = rand_coup()
         catchPionValue = catch_pion(grille, enemy(player), fromCoordinates, toCoordinates)
-        isPossibleTo = is_void(grille, toCoordinates) and case_void_arround_ia(grille,
-                                                                               fromCoordinates)  # (est_jouable(fromCoordinates, toCoordinates) or catchPionValue != -1)
+        isPossibleTo = is_void(grille, toCoordinates) and case_void_arround_ia(grille, fromCoordinates) and (est_jouable(fromCoordinates, toCoordinates) or catchPionValue != -1)
         while not isPossibleTo:
             toCoordinates = rand_coup()
             catchPionValue = catch_pion(grille, enemy(player), fromCoordinates, toCoordinates)
-            isPossibleTo = is_void(grille, toCoordinates) and case_void_arround_ia(grille,
-                                                                                   fromCoordinates)  # (est_jouable(fromCoordinates, toCoordinates) or catchPionValue != -1)
+            isPossibleTo = is_void(grille, toCoordinates) and case_void_arround_ia(grille,fromCoordinates) and (est_jouable(fromCoordinates, toCoordinates) or catchPionValue != -1)
         print(player, "DESTINATION CHOISI : ", toCoordinates)
     else:
         toCoordinates = saisir_coordonnees(grille, player, 'to')

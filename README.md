@@ -17,7 +17,7 @@ Le principe du jeu, est de manger tout les pions adverses, afin qu'il ne reste p
 
 > Etape N°1 : 
 >  - Lorsquevous verrez le message si dessous, vous devrez choisir entre jouer contre un ordinateur, ou jouer contre une autre personne (en local, sur le même PC). Il vous suffira de répondre par `Oui` ou `Non` (Vous pouvez répondre en anglais, ou juste mettre `y` ou `n`, le programme comprendra)
-```py
+```
 	Veux tu jouer contre un ordinateur ?
 	(Oui / Non) :
 ```
