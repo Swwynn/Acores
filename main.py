@@ -6,16 +6,20 @@ Bienvenue dans mon code ! Je vais essayer de vous expliquer pas à pas comment i
 v1.4.3
 
 PS : Attention, bug à signaler :
-• Lorsque que le plateau est plein de pion, il se peut que l'IA se bloque car elle ne peut pas ce déplacer naturellement !
-ce que je vous conseil si vous tester le code, c'est de commencer à jouer de C2 en C3, normalement vous devriez pas avoir trop de souci !
+• Lorsque que le plateau est plein de pion, il se peut que l'IA se bloque
+car elle ne peut pas ce déplacer naturellement !
+ce que je vous conseil si vous tester le code, c'est de commencer à jouer de C2 en C3,
+normalement vous devriez pas avoir trop de souci !
 '''
-
 
 import os
 from random import choice
 
+
 # Cette fonction me permet d'actualiser le terminal dans le quel s'execute le jeu
 # C'est ce qui donne cette impression de rafraichissement.
+
+
 def clear() -> None:
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -25,23 +29,26 @@ def rand_coup():
     lettre = choice(Data['letter'])
     chiffre = choice(['1', '2', '3', '4', '5'])
 
-    return (Data['letter'].index(lettre), Data['number'].index(chiffre))
+    return Data['letter'].index(lettre), Data['number'].index(chiffre)
+
 
 # Et cette fonction me permet de savoir si un joueur veux jouer contre une IA ou pas
 # J'ai fais cette fonction, dans le cas ou l'utilisateur rentre pas oui mais autre chose
 # Du genre y, yes ou autre.
+
+
 def start(answer: str):
     yes = ['OUI', 'YES', 'O', 'Y', 'U', 'I']
     no = ['NO', 'NON', 'N']
 
-    return 1 if answer.upper() in yes else 0
+    return 1 if answer.upper() in yes else 0 if answer.upper() in no else False
 
 
 # Cette fonction me permet d'afficher le jeu.
 def load_grid(grille: list) -> None:
     clear()
 
-    pionPlayer = lambda p: Data["player"][p]['pion']
+    pion_player = lambda p: Data["player"][p]['pion']
     player1 = f'Score : {Data["player"][0]["score"]}'
     player2 = f'Score : {Data["player"][1]["score"]}'
 
@@ -56,7 +63,7 @@ def load_grid(grille: list) -> None:
         print("            └───┴───┴───┴───┴───┘") if i == 4 else None
 
     print(
-        f"\nIl reste :\n{pion_left(grille, pionPlayer(0))} {pionPlayer(0)}\n{pion_left(grille, pionPlayer(1))} {pionPlayer(1)}")
+        f"\nIl reste :\n{pion_left(grille, pion_player(0))} {pion_player(0)}\n{pion_left(grille, pion_player(1))} {pion_player(1)}")
 
 
 # Cette fonction me permet d'initialiser la grille par défaut.
@@ -69,6 +76,7 @@ def default() -> list:
         Data['player'][i]['score'] = 0
 
     return grille
+
 
 # Et cette fonction me permet de retourner l'enemy d'un joueur.
 def enemy(player):
@@ -90,15 +98,15 @@ def is_same_player(grille: list, player: int, coordinates: tuple) -> bool:
 
 
 # Cette fonction me permet de regarder si ce que l'utilisateur rentre est sous le bon format
-def is_in_grid(input: str) -> bool:
-    if len(input) != 2:
+def is_in_grid(response: str) -> bool:
+    if len(response) != 2:
         return False
 
-    return (input[0] in Data['letter'] or input[0] in Data['mini']) and input[1] in Data['number']
+    return (response[0] in Data['letter'] or response[0] in Data['mini']) and response[1] in Data['number']
 
 
 # Celle ci me permet de mettre du vide, à l'endroit ou c'est fais manger un pion
-def add_void_catch(grille: list, coordinates: tuple, x: int, y: int) -> str:
+def add_void_catch(grille: list, coordinates: tuple, x: int, y: int) -> list:
     line, column = coordinates
     grille[line + x][column + y] = " "
     return grille
@@ -123,13 +131,13 @@ def catch_pion(grille: list, enemy: int, fromCoordinates: str, toCoordinates):
                 if fromColumn - 2 == toColumn and fromLine - 2 == toLine:
                     return 2
 
-    if fromLine <= 2 and fromColumn >= 2:
+    if fromLine <= 2 <= fromColumn:
         if grille[fromLine + 1][fromColumn - 1] == opponent:
             if grille[fromLine + 2][fromColumn - 2] == " ":
                 if fromColumn - 2 == toColumn and fromLine + 2 == toLine:
                     return 3
 
-    if fromLine >= 2 and fromColumn <= 2:
+    if fromLine >= 2 >= fromColumn:
         if grille[fromLine - 1][fromColumn + 1] == opponent:
             if grille[fromLine - 2][fromColumn + 2] == " ":
                 if fromColumn + 2 == toColumn and fromLine - 2 == toLine:
@@ -160,6 +168,7 @@ def catch_pion(grille: list, enemy: int, fromCoordinates: str, toCoordinates):
                     return 8
     return -1
 
+
 # Cette fonction me permet simplement de pouvoir voir si il y a une case libre autour d'un pion donné
 def est_jouable(fromCoordinates: tuple, toCoordinates: tuple) -> bool:
     fromLine, fromColumn = fromCoordinates
@@ -183,7 +192,7 @@ def case_void_arround_ia(grille: list, coordinates: tuple):
 
 
 # Ici c'te fonction demande à l'utilisateur de saisir une coordonnée
-def saisir_coordonnees(grille: list, player: int, action: str) -> list:
+def saisir_coordonnees(grille: list, player: int, action: str) -> tuple:
     load_grid(grille)
     message = Data['message'].get(action, lambda x: "No message found")(player)
 
@@ -195,7 +204,7 @@ def saisir_coordonnees(grille: list, player: int, action: str) -> list:
         answer = input(Data['message']['error'](player))
         valide = is_in_grid(answer)
 
-    return ((Data['letter'] if answer[0] in Data['letter'] else Data['mini']).index(answer[0]), Data['number'].index(answer[1]))
+    return (Data['letter'] if answer[0] in Data['letter'] else Data['mini']).index(answer[0]), Data['number'].index(answer[1])
 
 
 # Cette fonction me permet d'augmenter le score
@@ -208,11 +217,13 @@ def update_score(player: int, add: int) -> bool:
 def tour_joueur(grille: list, player: int, IA: bool = False) -> list:
     if IA:
         fromCoordinates = rand_coup()
-        isPossibleFrom = is_same_player(grille, player, fromCoordinates) and case_void_arround_ia(grille, fromCoordinates)
+        isPossibleFrom = is_same_player(grille, player, fromCoordinates) and case_void_arround_ia(grille,
+                                                                                                  fromCoordinates)
 
         while not isPossibleFrom:
             fromCoordinates = rand_coup()
-            isPossibleFrom = is_same_player(grille, player, fromCoordinates) and case_void_arround_ia(grille, fromCoordinates)
+            isPossibleFrom = is_same_player(grille, player, fromCoordinates) and case_void_arround_ia(grille,
+                                                                                                      fromCoordinates)
     else:
         fromCoordinates = saisir_coordonnees(grille, player, 'get')
         isPossibleFrom = is_same_player(grille, player, fromCoordinates)
@@ -227,22 +238,24 @@ def tour_joueur(grille: list, player: int, IA: bool = False) -> list:
     if IA:
         toCoordinates = rand_coup()
         catchPionValue = catch_pion(grille, enemy(player), fromCoordinates, toCoordinates)
-        isPossibleTo = is_void(grille, toCoordinates) and case_void_arround_ia(grille, fromCoordinates) and (est_jouable(fromCoordinates, toCoordinates) or catchPionValue != -1)
+        isPossibleTo = is_void(grille, toCoordinates) and case_void_arround_ia(grille, fromCoordinates) and (
+                    est_jouable(fromCoordinates, toCoordinates) or catchPionValue != -1)
         while not isPossibleTo:
             toCoordinates = rand_coup()
             catchPionValue = catch_pion(grille, enemy(player), fromCoordinates, toCoordinates)
-            isPossibleTo = is_void(grille, toCoordinates) and case_void_arround_ia(grille,fromCoordinates) and (est_jouable(fromCoordinates, toCoordinates) or catchPionValue != -1)
+            isPossibleTo = is_void(grille, toCoordinates) and case_void_arround_ia(grille, fromCoordinates) and (
+                        est_jouable(fromCoordinates, toCoordinates) or catchPionValue != -1)
         print(player, "DESTINATION CHOISI : ", toCoordinates)
     else:
         toCoordinates = saisir_coordonnees(grille, player, 'to')
         catchPionValue = catch_pion(grille, enemy(player), fromCoordinates, toCoordinates)
         isPossibleTo = is_void(grille, toCoordinates) and (
-                    est_jouable(fromCoordinates, toCoordinates) or catchPionValue != -1)
+                est_jouable(fromCoordinates, toCoordinates) or catchPionValue != -1)
         while not isPossibleTo:
             toCoordinates = saisir_coordonnees(grille, player, 'to')
             catchPionValue = catch_pion(grille, enemy(player), fromCoordinates, toCoordinates)
             isPossibleTo = is_void(grille, toCoordinates) and (
-                        est_jouable(fromCoordinates, toCoordinates) or catchPionValue != -1)
+                    est_jouable(fromCoordinates, toCoordinates) or catchPionValue != -1)
 
     toLine, toColumn = toCoordinates
 
@@ -289,7 +302,7 @@ def gameFinished(grille: list) -> bool:
 def load_end_game(winner: int) -> None:
     clear()
     print(f"""               ┌──────────────────────────────────┐
-               │   {f"Joueur {winner+1} {Data['player'][winner]['pion']} vous avez gagné !"}   │
+               │   {f"Joueur {winner + 1} {Data['player'][winner]['pion']} vous avez gagné !"}   │
                └──────────────────────────────────┘
     """)
 
