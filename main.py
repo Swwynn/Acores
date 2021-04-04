@@ -25,7 +25,7 @@ def clear() -> None:
 
 
 # Cete fonction me permet de tirer un coup aléatoire
-def rand_coup():
+def rand_coup() -> tuple:
     lettre = choice(Data['letter'])
     chiffre = choice(['1', '2', '3', '4', '5'])
 
@@ -37,7 +37,7 @@ def rand_coup():
 # Du genre y, yes ou autre.
 
 
-def start(answer: str):
+def start(answer: str) -> int or bool:
     yes = ['OUI', 'YES', 'O', 'Y', 'U', 'I']
     no = ['NO', 'NON', 'N']
 
@@ -79,7 +79,7 @@ def default() -> list:
 
 
 # Et cette fonction me permet de retourner l'enemy d'un joueur.
-def enemy(player):
+def enemy(player: str) -> int:
     return 1 if player == 0 else 0
 
 
@@ -113,7 +113,7 @@ def add_void_catch(grille: list, coordinates: tuple, x: int, y: int) -> list:
 
 
 # CEtte fonction me permet de voir si un pion peu être manger ou pas
-def catch_pion(grille: list, enemy: int, fromCoordinates: str, toCoordinates):
+def catch_pion(grille: list, enemy: int, fromCoordinates: str, toCoordinates) -> int:
     fromLine, fromColumn = fromCoordinates
     toLine, toColumn = toCoordinates
 
@@ -178,7 +178,7 @@ def est_jouable(fromCoordinates: tuple, toCoordinates: tuple) -> bool:
 
 
 # Et la c'est la même chose, sauf que c'est pour l'IA
-def case_void_arround_ia(grille: list, coordinates: tuple):
+def case_void_arround_ia(grille: list, coordinates: tuple) -> bool:
     line, column = coordinates
     for _ in range(len(Data['deltas'])):
         x, y = Data['deltas'][_]
