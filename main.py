@@ -289,7 +289,7 @@ def gameFinished(grille: list) -> bool:
 def load_end_game(winner: int) -> None:
     clear()
     print(f"""               ┌──────────────────────────────────┐
-               │   {f"Joueur {winner} {Data['player'][winner]['pion']} vous avez gagné !"}   │
+               │   {f"Joueur {winner+1} {Data['player'][winner]['pion']} vous avez gagné !"}   │
                └──────────────────────────────────┘
     """)
 
