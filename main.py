@@ -34,7 +34,7 @@ def start(answer: str):
     yes = ['OUI', 'YES', 'O', 'Y', 'U', 'I']
     no = ['NO', 'NON', 'N']
 
-    return bool(1 if answer.upper() in yes or answer.upper() in no else 0)
+    return 1 if answer.upper() in yes else 0
 
 
 # Cette fonction me permet d'afficher le jeu.
