@@ -25,7 +25,7 @@ Le principe du jeu, est de manger tout les pions adverses, afin qu'il ne reste p
 >  - Dans la mesure du possible, il vous faut gagner !! 
 
 > Etape Finale : 
-> - Féliciation pour votre victoire ! 
+> - Félicitation pour votre victoire ! 
 ```py
 	┌──────────────────────────────────┐
 	│   Joueur 1 ● vous avez gagné !   │
