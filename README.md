@@ -33,6 +33,6 @@ Le principe du jeu, est de manger tous les pions adverses, afin qu'il ne reste u
 ```
 ## Bug Signaler :
 
-- Problème déplacement bizarre IA
-- Problème affichage fin de partie
-- Problème déplacement IA (Parfois bloquée)
+- ~~Problème déplacement bizarre IA~~ (**Résolu**)
+- ~~Problème affichage fin de partie~~ (**Résolu**)
+- Problème déplacement IA (Parfois bloquée) 
