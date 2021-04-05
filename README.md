@@ -7,10 +7,10 @@ Le principe du jeu, est de manger tout les pions adverses, afin qu'il ne reste p
 
 > Types de déplacements :
 > - **Simple** : Tu peux déplacer un pion, d'une seule case, dans la direction de ton choix, du moment que la case est vide.
-> - **Saut** : Tu peux "manger" un pion ennemi, pour cela, si il y a un pion enemi autour de toi, et que derrière ce pion, ce trouve une case vide, alors tu peux te déplacer derrière lui, et le manger.
+> - **Saut** : Tu peux "manger" un pion ennemi, pour cela, si il y a un pion ennemi autour de toi, et que derrière ce pion, se trouve une case vide, alors tu peux te déplacer derrière lui, et le manger.
 
 > Sélectionner un pion : 
->  - Pour sélectionner un pion, tu peux tapper au choix, entre minuscule et majuscule : `c3` ou `C3`, te permettrons de faire le même déplacement.
+>  - Pour sélectionner un pion, tu peux tapper au choix, entre minuscule et majuscule : `c3` ou `C3`, te permettront de faire le même déplacement.
 >  - Et pour le déplacer, tu dois saisir les coordonnées sous la même forme, le jeu te dira si tu peux faire le déplacement choisis ou non.
 
 ## Déroulement de la partie :
