@@ -46,7 +46,7 @@ def start(answer: str) -> int or bool:
     yes = ['OUI', 'YES', 'O', 'Y', 'U', 'I']
     no = ['NO', 'NON', 'N']
 
-    return 1 if response in yes else 0 if response in no else False
+    return 'ia' if response in yes else 'notIA' if response in no else False
 
 
 def gridChoice(answer: str) -> int or bool:
@@ -410,7 +410,7 @@ clear()
 gridType = input(gridText)
 while not gridChoice(gridType):
     gridType = input(gridText)
-if start(ia) == 1:
+if start(ia) == 'ia':
     game(gridChoice(gridType), True)
 else:
     game(gridChoice(gridType))
