@@ -16,12 +16,16 @@ import os
 from random import choice
 
 
-# Cette fonction me permet d'actualiser le terminal dans lequel s'execute le jeu
+# Cette fonction me permet d'actualiser le terminal dans le quel s'execute le jeu
 # C'est ce qui donne cette impression de rafraichissement.
 
 
 def clear() -> None:
     os.system('cls' if os.name == 'nt' else 'clear')
+    banner()
+
+def space(n: int) -> str:
+    return ' '*n
 
 
 # Cete fonction me permet de tirer un coup aléatoire
@@ -38,10 +42,36 @@ def rand_coup() -> tuple:
 
 
 def start(answer: str) -> int or bool:
+    response = answer.upper()
     yes = ['OUI', 'YES', 'O', 'Y', 'U', 'I']
     no = ['NO', 'NON', 'N']
 
-    return 1 if answer.upper() in yes else 0 if answer.upper() in no else False
+    return 1 if response in yes else 0 if response in no else False
+
+
+def gridChoice(answer: str) -> int or bool:
+    response = answer.lower()
+    grid1 = ['start', 'début', 'debut', 'deb', 'begin', '1']
+    grid2 = ['mid', 'middle', 'milieu', '2']
+    grid3 = ['end', 'fin', 'last', 'derniere', 'dernière', '3']
+
+    return default() if response in grid1 else mid() if response in grid2 else end() if response in grid3 else False
+
+
+def banner() -> str:
+    print("""\
+    
+   ,---.       _,.----.     _,.---._                    ,----.    ,-,--.  
+ .--.'  \    .' .' -   \  ,-.' , -  `.   .-.,.---.   ,-.--` , \ ,-.'-  _\ 
+ \==\-/\ \  /==/  ,  ,-' /==/_,  ,  - \ /==/  `   \ |==|-  _.-`/==/_ ,_.' 
+ /==/-|_\ | |==|-   |  .|==|   .=.     |==|-, .=., ||==|   `.-.\==\  \    
+ \==\,   - \|==|_   `-' \==|_ : ;=:  - |==|   '='  /==/_ ,    / \==\ -\   
+ /==/ -   ,||==|   _  , |==| , '='     |==|- ,   .'|==|    .-'  _\==\ ,\  
+/==/-  /\ - \==\.       /\==\ -    ,_ /|==|_  . ,'.|==|_  ,`-._/==/\/ _ | 
+\==\ _.\=\.-'`-.`.___.-'  '.='. -   .' /==/  /\ ,  )==/ ,     /\==\ - , / 
+ `--`                       `--`--''   `--`-`--`--'`--`-----``  `--`---'  
+ 
+""")
 
 
 # Cette fonction me permet d'afficher le jeu.
@@ -52,18 +82,17 @@ def load_grid(grille: list) -> None:
     player1 = f'Score : {Data["player"][0]["score"]}'
     player2 = f'Score : {Data["player"][1]["score"]}'
 
-    print('\n\n\n')
-    print("              1   2   3   4   5")
+    print(f"\n{space(25)}1   2   3   4   5")
     for i, cases in enumerate(grille):
-        print("            ┌───┬───┬───┬───┬───┐") if i == 0 else print("            ├───┼───┼───┼───┼───┤     "
+        print(f"{space(23)}┌───┬───┬───┬───┬───┐") if i == 0 else print(f"{space(23)}├───┼───┼───┼───┼───┤     "
                                                                         f"{'Joueur 1 : Bleu' if i == 1 else player2 if i == 3 else ''}")
         print(
-            f"         {Data['letter'][i]}  │ {cases[0]} │ {cases[1]} │ {cases[2]} │ {cases[3]} │ {cases[4]} │     "
+            f"{space(20)}{Data['letter'][i]}  │ {cases[0]} │ {cases[1]} │ {cases[2]} │ {cases[3]} │ {cases[4]} │     "
             f"{player1 if i == 1 else 'Joueur 2 : Rouge' if i == 2 else ''}")
-        print("            └───┴───┴───┴───┴───┘") if i == 4 else None
+        print(f"{space(23)}└───┴───┴───┴───┴───┘") if i == 4 else None
 
     print(
-        f"\nIl reste :\n{pion_left(grille, pion_player(0))} {pion_player(0)}\n{pion_left(grille, pion_player(1))} {pion_player(1)}")
+        f"\n{space(28)}Il reste :\n{space(31)}{pion_left(grille, pion_player(0))} {pion_player(0)}\n{space(31)}{pion_left(grille, pion_player(1))} {pion_player(1)}")
 
 
 # Cette fonction me permet d'initialiser la grille par défaut.
@@ -78,7 +107,31 @@ def default() -> list:
     return grille
 
 
-# Et cette fonction me permet de retourner l'ennemie d'un joueur.
+def mid() -> list:
+    J1 = Data['player'][0]['pion']
+    J2 = Data['player'][1]['pion']
+    midGrid = [[J1, J1, ' ', ' ', J1],
+               [' ', J2, J1, ' ', J2],
+               [J2, ' ', J2, ' ', J2],
+               [' ', J1, ' ', J1, ' '],
+               [J2, ' ', ' ', J2, J1]]
+
+    return midGrid
+
+
+def end() -> list:
+    J1 = Data['player'][0]['pion']
+    J2 = Data['player'][1]['pion']
+    endGrid = [[' ', ' ', J1, ' ', ' '],
+               [' ', ' ', ' ', ' ', ' '],
+               [J1, ' ', ' ', ' ', ' '],
+               [' ', ' ', ' ', J2, ' '],
+               [' ', J2, ' ', ' ', ' ']]
+
+    return endGrid
+
+
+# Et cette fonction me permet de retourner l'enemy d'un joueur.
 def enemy(player: str) -> int:
     return 1 if player == 0 else 0
 
@@ -105,7 +158,7 @@ def is_in_grid(response: str) -> bool:
     return (response[0] in Data['letter'] or response[0] in Data['mini']) and response[1] in Data['number']
 
 
-# Celle ci me permet de mettre du vide, à l'endroit ou c'est fait manger un pion
+# Celle ci me permet de mettre du vide, à l'endroit ou c'est fais manger un pion
 def add_void_catch(grille: list, coordinates: tuple, x: int, y: int) -> list:
     line, column = coordinates
     grille[line + x][column + y] = " "
@@ -245,7 +298,6 @@ def tour_joueur(grille: list, player: int, IA: bool = False) -> list:
             catchPionValue = catch_pion(grille, enemy(player), fromCoordinates, toCoordinates)
             isPossibleTo = is_void(grille, toCoordinates) and case_void_arround_ia(grille, fromCoordinates) and (
                         est_jouable(fromCoordinates, toCoordinates) or catchPionValue != -1)
-        print(player, "DESTINATION CHOISI : ", toCoordinates)
     else:
         toCoordinates = saisir_coordonnees(grille, player, 'to')
         catchPionValue = catch_pion(grille, enemy(player), fromCoordinates, toCoordinates)
@@ -275,7 +327,7 @@ def tour_joueur(grille: list, player: int, IA: bool = False) -> list:
     return grille
 
 
-# Cette fonction me permet de retourner le nombre de pion sur le plateau !
+# Cette fonction me per met de retourner le nombre de pion sur le plateau !
 def pion_left(grille: list, player: str) -> int:
     compt = 0
     for x in range(len(grille)):
@@ -288,7 +340,7 @@ def pion_left(grille: list, player: str) -> int:
     return compt
 
 
-# Et cette fonction me permet de savoir si le jeu est fini
+# Et cette fonction me permet de savoir si le jeu est finis
 def gameFinished(grille: list) -> bool:
     pion1 = pion_left(grille, Data['player'][0]['pion'])
     pion2 = pion_left(grille, Data['player'][1]['pion'])
@@ -298,7 +350,7 @@ def gameFinished(grille: list) -> bool:
     return True
 
 
-# Et cette fonction me permet d'afficher le gagnant !
+# Et c'te fonction me permet d'afficher le gagnant !
 def load_end_game(winner: int) -> None:
     clear()
     print(f"""               ┌──────────────────────────────────┐
@@ -308,8 +360,7 @@ def load_end_game(winner: int) -> None:
 
 
 # Et voilà la fonction qui permet de dérouler le jeu
-def game(IA: bool = False) -> None:
-    game = default()
+def game(game, IA: bool = False) -> None:
     player = 0
 
     while not (gameFinished(game)):
@@ -341,19 +392,25 @@ Data = {
     },
     "message": {
         "get": lambda
-            player: f"\nJoueur {player + 1} ({Data['player'][player]['pion']}), c'est a votre tour !\nEntez les coordonnés du pion à déplacer : ",
-        "to": lambda player: f"\nEntrez les coordonnés d'arrivée du pion à déplacer : ",
+            player: f"\n{space(15)}Joueur {player + 1} ({Data['player'][player]['pion']}), c'est a votre tour !\n{space(13)}Entez les coordonnés du pion à déplacer : ",
+        "to": lambda player: f"\n{space(14)}Entrez les coordonnés d'arrivée du pion à déplacer : ",
         "error": lambda
-            player: f"\nJoueur {player + 1} ({Data['player'][player]['pion']}), coordonnés sont invalides ... \nSaisissez de nouvelles coordonnées : "
+            player: f"\n{space(13)}Joueur {player + 1} ({Data['player'][player]['pion']}), coordonnés sont invalides ... \n{space(14)}Saisissez de nouvelles coordonnées : "
     }
 }
 
 # Et la je demande juste à l'utilisateur s'il veut jouer contre une IA
 clear()
-ia = input("Veux tu jouer contre un ordinateur ?\n(Oui / Non) : ")
-while start(ia) not in [0, 1]:
-    ia = input("Veux tu jouer contre un ordinateur ?\n(Oui / Non) : ")
+iaText = f"{space(19)}Veux tu jouer contre un ordinateur ?\n{space(27)}(Oui / Non) : "
+gridText = f"{space(20)}Sur quelle grille veux tu jouer :\n\n{space(27)}[1] : Grille N°1\n{space(27)}[2] : Grille N°2\n{space(27)}[3] : Grille N°3\n\n{space(21)}Saisie ta réponse : "
+ia = input(iaText)
+while not start(ia):
+    ia = input(iaText)
+clear()
+gridType = input(gridText)
+while not gridChoice(gridType):
+    gridType = input(gridText)
 if start(ia) == 1:
-    game(True)
+    game(gridChoice(gridType), True)
 else:
-    game()
+    game(gridChoice(gridType))

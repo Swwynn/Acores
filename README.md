@@ -22,9 +22,16 @@ Le principe du jeu, est de manger tout les pions adverses, afin qu'il ne reste p
 	(Oui / Non) :
 ```
 > Etape N°2 : 
->  - Dans la mesure du possible, il vous faut gagner !! 
+>  - Choisissez une grille, le jeu vous en propose 3 différentes : 
+> > - Une grille classique de début de partie
+> > - Une grille de milieu de partie, ou il manque quelque pion
+> > - Enfin une grille de fin de partie ou il ne reste que très peu de pion
+> - Pour choisir entre ces différentes grille, il vous faut saisir au clavier, `1`, `2`, `3`. Ou alors des mots simple comme `debut`, `milieu`, ou `fin`
 
-> Etape Finale : 
+> Etape 3 : 
+> - Amusez vous bien ! ☻
+
+> Etape 4 :
 > - Félicitation pour votre victoire ! 
 ```py
 	┌──────────────────────────────────┐
@@ -33,6 +40,8 @@ Le principe du jeu, est de manger tout les pions adverses, afin qu'il ne reste p
 ```
 
 ## Lancement du Jeu:
+
+> - Vous pouvez vous rendre sur le site de __[Repl.it](https://replit.com/@Swynnn/Acores#main.py)__ pour jouer au jeu, ou sinon, suivre les étapes qui suivent
 
 > - Pensez à installer Python3 sur votre machine au préalable.
 > - Si vous avez `make` d'installer, alors il vous suffit de lancer le makefile joint dans le code
