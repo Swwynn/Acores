@@ -1,4 +1,4 @@
-# Acores Project
+# Acores Project v5
 
 ## But du jeu :
 Le principe du jeu, est de manger tout les pions adverses, afin qu'il ne reste plus qu'un joueur sur le plateau de jeu.
@@ -17,9 +17,9 @@ Le principe du jeu, est de manger tout les pions adverses, afin qu'il ne reste p
 
 > Etape N°1 : 
 >  - Lorsque vous verrez le message ci-dessous, vous devrez choisir entre jouer contre un ordinateur, ou jouer contre une autre personne (en local, sur le même PC). Il vous suffira de répondre par `Oui` ou `Non` (Vous pouvez répondre en anglais, ou juste mettre `y` ou `n`, le programme comprendra)
-```py
-	Veux tu jouer contre un ordinateur ?
-	(Oui / Non) :
+```shell
+	            Veux tu jouer contre un ordinateur ?
+                           (Oui / Non) :
 ```
 > Etape N°2 : 
 >  - Choisissez une grille, le jeu vous en propose 3 différentes : 
@@ -27,6 +27,27 @@ Le principe du jeu, est de manger tout les pions adverses, afin qu'il ne reste p
 > > - Une grille de milieu de partie, ou il manque quelque pion
 > > - Enfin une grille de fin de partie ou il ne reste que très peu de pion
 > - Pour choisir entre ces différentes grille, il vous faut saisir au clavier, `1`, `2`, `3`. Ou alors des mots simple comme `debut`, `milieu`, ou `fin`
+
+````shell
+                  Sur quelle grille veux tu jouer :
+
+                           [1] : Grille N°1
+                           [2] : Grille N°2
+                           [3] : Grille N°3
+
+                     Saisie ta réponse :
+````
+
+> Etape N°2 **BIS** : ***(NEW)***
+> - Si vous avez demander à jouer contre une IA, le jeu vous demandera le niveau de difficulté auquel vous voulez jouer : 
+````shell
+                    Avec quel niveau de difficulté :
+
+                           [1] : Difficulté 1
+                           [2] : Difficulté 2
+
+                        Saisie ta réponse :
+````
 
 > Etape 3 : 
 > - Amusez vous bien ! ☻
