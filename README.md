@@ -28,7 +28,7 @@ Le principe du jeu, est de manger tout les pions adverses, afin qu'il ne reste p
 > > - Enfin une grille de fin de partie ou il ne reste que très peu de pion
 > - Pour choisir entre ces différentes grille, il vous faut saisir au clavier, `1`, `2`, `3`. Ou alors des mots simple comme `debut`, `milieu`, ou `fin`
 
-````shell
+```shell
                   Sur quelle grille veux tu jouer :
 
                            [1] : Grille N°1
@@ -36,18 +36,18 @@ Le principe du jeu, est de manger tout les pions adverses, afin qu'il ne reste p
                            [3] : Grille N°3
 
                      Saisie ta réponse :
-````
+```
 
 > Etape N°2 **BIS** : ***(NEW)***
 > - Si vous avez demander à jouer contre une IA, le jeu vous demandera le niveau de difficulté auquel vous voulez jouer : 
-````shell
+```shell
                     Avec quel niveau de difficulté :
 
                            [1] : Difficulté 1
                            [2] : Difficulté 2
 
                         Saisie ta réponse :
-````
+```
 
 > Etape 3 : 
 > - Amusez vous bien ! ☻

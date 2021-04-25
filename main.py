@@ -8,7 +8,7 @@ v1.4.3
 PS : Attention, bug à signaler :
 • Lorsque que le plateau est plein de pion, il se peut que l'IA se bloque
 car elle ne peut pas ce déplacer naturellement !
-ce que je vous conseil si vous tester le code, c'est de commencer à jouer de C2 en C3,
+Ce que je vous conseil si vous tester le code, c'est de commencer à jouer de C2 en C3,
 normalement vous devriez pas avoir trop de souci !
 '''
 
@@ -23,11 +23,11 @@ def clear() -> None:
     # linux et MacOS pour supprimer l'affichage des anciennes commandes. Et c'est ce que je fais ici avec cette ligne
     # de code :
     os.system('cls' if os.name == 'nt' else 'clear')
-    # Puis ici j'appele ma Fonction banner(), qui affiche la petite bannière ACORES que vous voyez en haut du jeu.
+    # Puis ici j'appelle ma Fonction banner(), qui affiche la petite bannière ACORES que vous voyez en haut du jeu.
     banner()
 
 
-# Cette fonction la me permet juste d'améliorer l'affichage de mon jeu, en mettant le nombre d'espace que je veux en
+# Cette fonction là me permet juste d'améliorer l'affichage de mon jeu, en mettant le nombre d'espace que je veux en
 # paramètre
 def space(n: int) -> str:
     return ' ' * n
@@ -53,7 +53,7 @@ def getStart(answer: str) -> bool or None:
     # Ici je passe la chaine de caractère à l'entrée de ma fonction en majuscule ce qui me donne :
     # Admettons qu'en entrée de ma fonction j'ai le mot world, alors ça donnera WORLD.
     response = answer.upper()
-    # Ici je créer 2 liste qui contiennent les mots clefs permettant de savoir
+    # Ici je crée 2 liste qui contiennent les mots clefs permettant de savoir
     # Si je joueur veux jouer contre une IA ou pas
     yes = ['OUI', 'YES', 'O', 'Y', 'U', 'I']
     no = ['NO', 'NON', 'N']
@@ -103,7 +103,7 @@ def banner() -> str:
 def load_grid(grille: list) -> None:
     # Ici je fais appel à ma fonction clear, qui me permet de supprimer tout ce qui a dans le terminal.
     clear()
-    # Je créer une "mini" fonciton, qui me permet dé récupérer le pion associé à un joueur.
+    # Je crée une "mini" fonction, qui me permet de récupérer le pion associé à un joueur.
     pion_player = lambda p: Data["player"][p]['pion']
     # Et la 2 variables me permttant de récupérer les scores.
     player1 = f'Score : {Data["player"][0]["score"]}'
@@ -121,7 +121,7 @@ def load_grid(grille: list) -> None:
         print(f"{space(23)}└───┴───┴───┴───┴───┘") if i == 4 else None
 
     # Et ici tout simplement, j'affiche le nombre de pion restant sur le plateau, et le dernier coup jouer par l'IA (
-    # Si y'en à une)
+    # Si y'en à un)
     print(
         f"\n{space(28)}Il reste :\n{space(31)}{pion_left(grille, pion_player(0))} {pion_player(0)}\n{space(31)}{pion_left(grille, pion_player(1))} {pion_player(1)}")
     if Data['iaAffichage']:
@@ -146,7 +146,7 @@ def default() -> list:
     return grille
 
 
-# Ici je créer juste une grille de milieu de partie.
+# Ici je crée juste une grille de milieu de partie.
 def mid() -> list:
     J1 = Data['player'][0]['pion']
     J2 = Data['player'][1]['pion']
@@ -202,7 +202,7 @@ def is_in_grid(response: str) -> bool:
     # Je vérifie que ce rentre l'utilisateur comporte bien 2 caractères
     if len(response) != 2:
         return False
-    # Puis je regarde si ils sont dans mes dux liste, lettre et chiffres.
+    # Puis je regarde si ils sont dans mes deux listes, lettre et chiffres.
     return (response[0] in Data['letter'] or response[0] in Data['mini']) and response[1] in Data['number']
 
 
@@ -221,7 +221,7 @@ def add_void_catch(grille: list, coordinates: tuple, x: int, y: int) -> list:
 
 # CEtte fonction me permet de voir si un pion peu être manger ou pas
 def catch_pion(grille: list, enemy: int, fromCoordinates: tuple, toCoordinates: tuple) -> int:
-    # Ici je créer une variable d'incrémentation, qui me permet de savoir dans quel direction un oion peu être manger,
+    # Ici je crée une variable d'incrémentation, qui me permet de savoir dans quel direction un pion peut être manger,
     # Diagonale, horizontal, vertical, gauche, droite etc..
     i = 0
     # Je récupère les x et y de la coordonnées de début et d'arrivée.
@@ -230,20 +230,20 @@ def catch_pion(grille: list, enemy: int, fromCoordinates: tuple, toCoordinates: 
     # Et je récupère la taille max de ma grille, ça me sert pour l'encadrement de mes coups.
     tailleMax = len(grille)
 
-    # Enfin je récupère le pion enemies.
+    # Enfin je récupère le pion enemie.
     opponent = Data['player'][enemy]['pion']
 
-    # Ici, je récupère ma liste de delta, pour faire simple, dans ma DB (Base de Données, ici représenter par un
-    # dictionnaire), je créer des couples (delta) qui me permettent d'étudier chaque direction, La diagonale en bas à
+    # Ici, je récupère ma liste de delta, pour faire simple, dans ma DB (Base de Données, ici représenté par un
+    # dictionnaire), je crée des couples (delta) qui me permettent d'étudier chaque direction, La diagonale en bas à
     # droite (++) la diagonale en bas à gauche (-+), la diag en haut à gauche (--) la diagonale en haut à droite( +-)
     # et pareil pour vertical et horizontal. Ces couples me permettent, en fonction des coordonnées de départ,
-    # d'aller vérifier, si En fonction des coordonnées de départ plus le delta, si il y a une case vide ou pas,
+    # d'aller vérifier, si en fonction des coordonnées de départ plus le delta, si il y a une case vide ou pas,
     # et ensuite je récupère une deuxième couple de delta, qui me permet de voir autour de mon pion initial voir
     # si je peux il y a quelqu'un à manger Démonstration :
     for dx, dy in Data['deltaCatch']:
         # Je récupère le premier couple de deltas
         Line, Column = (fromLine + dx), (fromColumn + dy)
-        # Je créer 2 variables au quel j'additionne, la ligne et la colonne de départ, avec le delta.
+        # Je crée 2 variables au quel j'additionne, la ligne et la colonne de départ, avec le delta.
         LineInf, ColumnInf = (fromLine + Data['deltas'][i][0]), (fromColumn + Data['deltas'][i][1])
         # Et la je fais pareil avec l'autre couple de delta (le précédent étant un delta de 2 et ici un delta de 1)
 
@@ -271,7 +271,7 @@ def est_jouable(fromCoordinates: tuple, toCoordinates: tuple) -> bool:
     fromLine, fromColumn = fromCoordinates
     toLine, toColumn = toCoordinates
 
-    # Et je fais un calcul, je calcul la valuer absolue de la ligne de départ - la ligne d'arrivée Et si la réponse
+    # Et je fais un calcul, je calcul la valeur absolue de la ligne de départ - la ligne d'arrivée Et si la réponse
     # est <= à 1 ça veut bien dire que la case est autour de moi, et ensuite je fais pareil avec la colonne Et je
     # regarde si les deux sont vraie et je retourne le booléen en conséquence.
     return bool(True if abs(fromLine - toLine) <= 1 and abs(fromColumn - toColumn) <= 1 else False)
@@ -298,10 +298,10 @@ def saisir_coordonnees(grille: list, player: int, action: str) -> tuple:
     # J'affiche en premier temps la grille
     load_grid(grille)
     # Ici simple vérification pour voir si le player en entrée et bon (sinon j'ai fais une erreur)
-    # Et je récupère les messages correspondant
+    # Et je récupère les messages correspondants
     message = Data['message'].get(action, lambda x: "No message found")(player)
 
-    # Je demande au joueur de saisir ça coordonnées
+    # Je demande au joueur de saisir les coordonnées
     answer = input(message)
     # Je regarde si elle est valide
     valide = is_in_grid(answer)
@@ -392,7 +392,7 @@ def tour_joueur(grille: list, player: int, IA: bool = False) -> list:
 
     toLine, toColumn = toCoordinates
 
-    # Et ici je regarde simplement si la case choisie par l'utilisateur, peu être manger, et si c'est le cas
+    # Et ici je regarde simplement si la case choisie par l'utilisateur, peut être manger, et si c'est le cas
     # Je mange,
     if catchPionValue != -1:
         dx, dy = Data['deltas'][catchPionValue - 1]
@@ -425,9 +425,9 @@ def pion_left(grille: list, player: str) -> int:
     return compt
 
 
-# Et cette fonction me permet de savoir si le jeu est finis
+# Et cette fonction me permet de savoir si le jeu est fini
 def gameFinished(grille: list) -> bool:
-    # Et ici j'utilise la fonction précédent pour voir si le jeu est finis
+    # Et ici j'utilise la fonction précédent pour voir si le jeu est fini
     pion1 = pion_left(grille, Data['player'][0]['pion'])
     pion2 = pion_left(grille, Data['player'][1]['pion'])
 
@@ -493,7 +493,7 @@ Data = {
 # Enfin j'actualise le terminale
 clear()
 
-# Je créer des textes pour toute mes demandes quand l'utilsateur lance le code.
+# Je crée des textes pour toute mes demandes quand l'utilsateur lance le code.
 iaText = f"{space(19)}Veux tu jouer contre un ordinateur ?\n{space(27)}(Oui / Non) : "
 gridText = f"{space(20)}Sur quelle grille veux tu jouer :\n\n{space(27)}[1] : Grille N°1\n{space(27)}[2] : Grille N°2\n{space(27)}[3] : Grille N°3\n\n{space(21)}Saisie ta réponse : "
 iaDifficulty = f"{space(20)}Avec quel niveau de difficulté :\n\n{space(27)}[1] : Difficulté 1\n{space(27)}[2] : Difficulté 2\n\n{space(21)}Saisie ta réponse : "
